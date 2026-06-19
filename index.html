@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>AI脳発掘診断｜AI脳16タイプ診断</title>
+<meta name="description" content="AIを使ってる？それとも、考える力を預けてる？あなたがAIに預けていた思考を発掘する16タイプ診断。">
+<meta property="og:title" content="AI脳発掘診断">
+<meta property="og:description" content="あなたがAIに預けていた思考を発掘します。">
+<meta property="og:type" content="website">
+<style>
+:root{
+  --bg:#f6f0e6;--paper:#fffdf8;--ink:#171412;--sub:#6c6259;--line:#e7d9c8;--soft:#f1e8dc;
+  --brand:#111827;--brand2:#6d4aff;--gold:#d8a742;--ok:#166534;--bad:#991b1b;
+  --shadow:0 18px 44px rgba(24,20,18,.08)
+}
+*{box-sizing:border-box}
+body{margin:0;color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic","Noto Sans JP",sans-serif;line-height:1.62;background:radial-gradient(circle at 0% 0%,rgba(109,74,255,.13),transparent 28%),radial-gradient(circle at 100% 0%,rgba(216,167,66,.18),transparent 25%),linear-gradient(180deg,#fffaf2,var(--bg))}
+.wrap{max-width:980px;margin:0 auto;padding:18px 14px 64px}.panel{background:rgba(255,253,248,.97);border:1px solid var(--line);border-radius:28px;box-shadow:var(--shadow);padding:22px 18px;margin-top:14px}.hidden{display:none!important}
+.badge{display:inline-flex;align-items:center;background:var(--brand);color:#fff;border-radius:999px;padding:8px 12px;font-weight:850;font-size:12px}.status{display:inline-flex;margin-left:8px;border-radius:999px;padding:8px 12px;font-size:12px;font-weight:850;background:#fee2e2;color:var(--bad)}.status.ok{background:#dcfce7;color:var(--ok)}
+h1{margin:14px 0 10px;font-size:clamp(36px,8.4vw,66px);line-height:1.02;letter-spacing:-.075em}h2{margin:0 0 10px;font-size:26px;letter-spacing:-.045em}h3{margin:0 0 8px;font-size:18px;letter-spacing:-.03em}p{margin:0 0 10px}.lead{font-size:18px;color:var(--sub)}.small{font-size:13px;color:var(--sub)}
+.oneLine{background:var(--soft);border:1px solid var(--line);border-radius:18px;padding:12px 14px;font-weight:750;margin:16px 0 10px}.btns{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+button,.btn{-webkit-appearance:none;appearance:none;border:0;cursor:pointer;text-decoration:none;background:var(--brand);color:#fff;border-radius:999px;min-height:48px;padding:13px 18px;font:850 15px/1 -apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic","Noto Sans JP",sans-serif}button.secondary{background:#fff;color:var(--ink);border:1px solid var(--line)}button.ghost{background:transparent;color:var(--sub);border:1px solid var(--line)}button.gold{background:linear-gradient(135deg,#111827,#6d4aff)}button:disabled{opacity:.45;cursor:not-allowed}
+.heroGrid{display:grid;grid-template-columns:1.18fr .82fr;gap:16px;align-items:center}.heroCard{background:linear-gradient(180deg,#151a28,#1f2540);border-radius:26px;padding:18px;color:#fff;min-height:250px;display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden}.heroCard:after{content:"";position:absolute;right:-60px;top:-70px;width:190px;height:190px;background:rgba(109,74,255,.35);border-radius:50%}.mascotBox{position:relative;z-index:1;display:flex;gap:12px;align-items:center}.mascotText{color:#d7dcf1;font-size:14px}.heroPills{position:relative;z-index:1;display:flex;gap:8px;flex-wrap:wrap}.pill{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.10);border-radius:999px;padding:7px 10px;font-size:12px;font-weight:800}
+.progress{height:10px;background:var(--soft);border-radius:999px;overflow:hidden;margin:10px 0 14px}.bar{width:0%;height:100%;background:linear-gradient(90deg,var(--brand),var(--brand2));transition:.2s}.qMeta{font-size:13px;color:var(--sub);font-weight:800}.qTitle{font-size:24px;line-height:1.35;font-weight:950;letter-spacing:-.045em;margin:8px 0 14px}.guide{display:flex;gap:10px;align-items:flex-start;background:#111827;color:#fff;border-radius:18px;padding:12px 14px;margin-bottom:12px}.guide svg{flex:0 0 auto}.guide p{margin:0;color:#dbe1f7;font-size:14px}
+.choices{display:grid;gap:10px}.choice{display:flex;gap:12px;align-items:flex-start;border:1px solid var(--line);background:#fff;border-radius:18px;padding:14px;cursor:pointer;transition:.15s}.choice.selected{border-color:#8368ff;background:#f3efff}.choice input{margin-top:6px;accent-color:var(--brand)}.choice strong{display:block;font-size:16px}.choice span{display:block;font-size:14px;color:var(--sub)}
+.sampleBox{background:#fff6d8;border:1px solid #ead28b;border-radius:18px;padding:14px;margin-bottom:12px}.sampleBox strong{display:block;margin-bottom:6px;color:#7c4a03}.sampleBox p{margin:0;color:#3f3428;font-weight:650}
+.freeBox,.judgeBox{background:#fff;border:1px solid var(--line);border-radius:20px;padding:16px}.freeBox textarea{width:100%;min-height:140px;border:1px solid var(--line);border-radius:16px;padding:14px;font:inherit;resize:vertical;color:var(--ink);background:#fffdf8}.freeBox textarea:focus{outline:none;border-color:#8b75ff;box-shadow:0 0 0 4px rgba(139,117,255,.12)}.aiNote{display:none;margin-top:12px;background:#111827;color:white;border-radius:16px;padding:14px;font-size:14px}.aiNote.show{display:block}.aiNote strong{display:block;margin-bottom:4px}
+.judgeCards{display:grid;grid-template-columns:1fr 1fr;gap:10px}.judgeCard{border:1px solid var(--line);border-radius:18px;padding:14px;background:#fffdf8;cursor:pointer}.judgeCard.selected{border-color:#8368ff;background:#f3efff}.judgeCard b{display:block;margin-bottom:6px}.judgeCard p{font-size:14px;color:var(--sub)}
+.nav{display:flex;justify-content:space-between;gap:10px;margin-top:16px}.nav button{flex:1}.resultHero{border-radius:26px;background:linear-gradient(135deg,#111827,#1e2b4a 58%,#6d4aff 140%);color:#fff;padding:18px;display:grid;grid-template-columns:112px 1fr;gap:14px;align-items:center}.typeCode{font-size:54px;line-height:1;font-weight:950;letter-spacing:-.06em}.typeName{font-size:30px;font-weight:950;letter-spacing:-.05em;margin-bottom:4px}.typeCatch{color:#d7dcf1}
+.axisGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:12px}.axis{background:var(--soft);border:1px solid var(--line);border-radius:16px;padding:12px;text-align:center}.axis b{display:block;font-size:20px}.axis small{color:var(--sub)}
+.resultBlocks{display:grid;gap:12px;margin-top:14px}.block{background:#fff;border:1px solid var(--line);border-radius:18px;padding:14px}.bigFinding{background:#fff6d8;border-color:#ead28b}.bigFinding h3{color:#7c4a03}.findingLine{font-size:22px;font-weight:950;letter-spacing:-.04em;margin:4px 0 0}
+textarea.shareText{width:100%;min-height:150px;resize:vertical;border:1px solid var(--line);background:#fff;border-radius:18px;padding:14px;font:inherit;color:var(--ink)}
+.gallery{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.typeCard{border:1px solid var(--line);border-radius:20px;padding:14px;background:#fff;display:grid;grid-template-columns:72px 1fr;gap:12px;align-items:start}.typeCard h4{margin:0 0 4px;font-size:17px}.typeCard p{margin:0;font-size:14px;color:var(--sub)}.codeTag{display:inline-block;margin-top:6px;background:var(--soft);border:1px solid var(--line);border-radius:999px;padding:4px 9px;font-size:12px;font-weight:850}
+.toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);background:#111827;color:#fff;padding:12px 16px;border-radius:999px;font-weight:850;box-shadow:var(--shadow);z-index:20}.footerNote{margin-top:12px;padding-top:12px;border-top:1px dashed var(--line)}code{background:var(--soft);border-radius:6px;padding:2px 6px}.linkBox{display:grid;gap:8px}.linkItem{display:block;background:#fffdf8;border:1px solid var(--line);border-radius:16px;padding:12px 14px;color:var(--ink);text-decoration:none;font-weight:800}.linkItem span{display:block;color:var(--sub);font-weight:500;font-size:13px;margin-top:2px}
+@media(max-width:760px){.heroGrid{grid-template-columns:1fr}.gallery{grid-template-columns:1fr}.resultHero{grid-template-columns:1fr}.axisGrid{grid-template-columns:repeat(2,1fr)}.judgeCards{grid-template-columns:1fr}.typeCode{font-size:44px}.typeName{font-size:25px}.panel{border-radius:22px;padding:20px 15px}}
+</style>
+</head>
+<body>
+<main class="wrap">
+<section id="home" class="panel">
+  <div class="heroGrid">
+    <div>
+      <span class="badge">AI脳発掘診断</span><span id="jsStatus" class="status">JS未起動</span>
+      <h1>あなたの思考、<br>どこまでAIに<br>預けてる？</h1>
+      <p class="lead">AIを使ってるのに、頭が鈍ってきた気がする。それ、AI依存ではなく「思考の外注癖」かもしれません。</p>
+      <div class="oneLine">18問で、あなたがAIに預けていた思考の場所を発掘します。途中に少しだけ、あなたの反応が見える仕掛けもあります。</div>
+      <div class="btns"><button type="button" class="gold" onclick="App.startQuiz()">発掘をはじめる</button><button type="button" class="secondary" onclick="App.showTypes()">16タイプを見る</button></div>
+      <p class="small">約2分 / 18問 / 結果はX共有・コピペ・SVG保存に対応</p>
+    </div>
+    <div class="heroCard">
+      <div class="mascotBox">
+        <div id="heroMascot"></div>
+        <div><h3 style="color:#fff;margin-bottom:4px">思考発掘員 ノウホリ</h3><p class="mascotText">あなたがAIに預けた思考を、脳内から掘り出します。</p></div>
+      </div>
+      <div class="heroPills"><span class="pill">考え始める力</span><span class="pill">言葉にする力</span><span class="pill">疑う力</span><span class="pill">最後に決める力</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="quiz" class="panel hidden">
+  <div class="qMeta" id="qMeta">Q1 / 18</div>
+  <div class="progress"><div class="bar" id="bar"></div></div>
+  <div class="guide"><div id="guideIcon"></div><p id="guideText"></p></div>
+  <div class="qTitle" id="qTitle"></div>
+  <div id="questionArea"></div>
+  <div class="nav"><button type="button" class="secondary" onclick="App.back()">戻る</button><button type="button" id="nextBtn" onclick="App.next()" disabled>次へ</button></div>
+</section>
+
+<section id="result" class="panel hidden">
+  <div class="resultHero"><div id="resultIcon"></div><div><div class="typeCode" id="resultCode"></div><div class="typeName" id="resultName"></div><div class="typeCatch" id="resultCatch"></div></div></div>
+  <div class="axisGrid"><div class="axis"><b id="axis1"></b><small>問い方</small></div><div class="axis"><b id="axis2"></b><small>仮説</small></div><div class="axis"><b id="axis3"></b><small>役割</small></div><div class="axis"><b id="axis4"></b><small>受け取り</small></div></div>
+  <div class="resultBlocks">
+    <div class="block bigFinding"><h3>発掘された思考</h3><p class="findingLine" id="findingLine"></p></div>
+    <div class="block"><h3>脳内ログ</h3><p id="resultInsight"></p></div>
+    <div class="block"><h3>記述式の見立て</h3><p id="freeInsight"></p></div>
+    <div class="block"><h3>AIっぽさ判別ログ</h3><p id="judgeInsight"></p></div>
+    <div class="block"><h3>回復アクション</h3><p id="resultAction"></p></div>
+    <div class="block"><h3>SNS共有テキスト</h3><textarea class="shareText" id="shareText" readonly></textarea><div class="btns"><button type="button" onclick="App.shareX()">Xで共有</button><button type="button" class="secondary" onclick="App.shareNative()">スマホ共有</button><button type="button" class="secondary" onclick="App.copyShare()">コピー</button><button type="button" class="secondary" onclick="App.copyUrl()">結果URLをコピー</button><button type="button" class="secondary" onclick="App.saveSvg()">結果SVGを保存</button><button type="button" class="ghost" onclick="App.startQuiz()">もう一度診断</button></div><div class="footerNote small">※ 結果URLは <code>?type=XXXX</code> 付きになります。</div></div>
+    <div class="block"><h3>他の発掘を見る</h3><div class="linkBox"><a class="linkItem" href="#" onclick="return false;">未送信LINE未来返信 <span>送れなかった言葉から、発生しなかった未来を掘る</span></a><a class="linkItem" href="#" onclick="return false;">逆プロンプト実験 <span>刺さらない構造を掘って、逆から発想する</span></a><a class="linkItem" href="#" onclick="return false;">質問させるAI <span>自分でも見えていない問いを掘る</span></a></div><p class="small footerNote">今は展示用リンクです。公開後にnote・X・発掘ツール一覧へ差し替え推奨。</p></div>
+  </div>
+</section>
+
+<section id="types" class="panel hidden">
+  <h2>16タイプ一覧</h2><p class="small">Q/A＝質問させる・答えを求める、H/M＝仮説あり・丸投げ、E/J＝編集・判断、R/D＝疑う・受け取る</p>
+  <div class="gallery" id="gallery"></div>
+  <div class="btns"><button type="button" class="secondary" onclick="App.goHome()">トップへ戻る</button></div>
+</section>
+</main>
+<div id="toast" class="toast hidden">コピーしました</div>
+
+<script>
+window.App = (function(){
+"use strict";
+
+/* 1. 定数定義 */
+const qs = [
+  {type:"choice", guide:"まずは問い方を掘ります。AIに答えを求めているのか、問いを作らせているのか。", text:"AIに相談するとき、最初に近いのは？", choices:[{label:"AIに質問してもらいながら整理したい",sub:"何を聞けばいいかも一緒に作りたい",score:"Q"},{label:"すぐ答えや案を出してほしい",sub:"とにかく結果がほしい",score:"A"}]},
+  {type:"choice", guide:"ここ、かなり本性が出ます。AIに渡す前に、自分の仮説が残っているか。", text:"AIに聞く前、自分の仮説はある？", choices:[{label:"ざっくりでも自分の考えを書いてから聞く",sub:"AIは比較や補助に使う",score:"H"},{label:"何も浮かばないから、そのまま投げる",sub:"まずAIに出してもらう",score:"M"}]},
+  {type:"choice", guide:"AIを編集者にしているのか、判断者にしているのかを見ます。", text:"AIに一番やってほしい役割は？", choices:[{label:"自分の考えを整える編集者",sub:"言い換え、整理、磨き上げ",score:"E"},{label:"迷ったときに決めてくれる判断者",sub:"選択、結論、方向づけ",score:"J"}]},
+  {type:"choice", guide:"AIの答えをどう受け取るか。ここで“疑う力”が見えます。", text:"AIの答えを見たあとの自分は？", choices:[{label:"どこが違うか、足りないかを探す",sub:"AIの答えを疑って使う",score:"R"},{label:"かなりそのまま受け取る",sub:"AIが言うならそうかもと思う",score:"D"}]},
+  {type:"free", guide:"ここが発掘ポイントです。まずは自分の言葉で置いてみてください。詰まった人向けの補助もあります。", text:"最近、AIを使っていて『自分で考える力が弱くなったかも』と感じた場面を書いてください。"},
+  {type:"judge", guide:"文章の違和感を見ます。整っている文を、あなたがどう受け取るかを掘ります。", text:"どちらの文章の方が、AIっぽく見えますか？"},
+  {type:"choice", guide:"単体の文章を見て、AIっぽさを判別します。きれいすぎる文章に違和感を持てるかを見ます。", text:"この文章はAIで作られたものだと思いますか？", sample:"AIがない生活は考えられない。文章も相談もアイデア出しもAIが支えてくれる。私にとってAIは、毎日の思考を広げてくれる相棒です。", choices:[{label:"AIで作られたと思う",sub:"整いすぎた言い回しに違和感がある",score:"R"},{label:"人間が書いたと思う",sub:"自然な感想として受け取った",score:"D"}]},
+  {type:"choice", guide:"AIが生活の前提になっているかを見ます。回数より“開くタイミング”が重要です。", text:"「AIがない生活は考えられない」に近い？", choices:[{label:"近い。困ったらまずAIを開く",sub:"AIがないと考え始めにくい",score:"M"},{label:"便利だけど、なくても自分で考える余地はある",sub:"AIは道具で、主導権は残している",score:"H"}]},
+  {type:"choice", guide:"AIで人生が変わった。その変化が“行動を増やした”のか、“AIなしで動きにくくした”のかを掘ります。", text:"AIで人生が変わったと感じるのはどっち？", choices:[{label:"自分で試す回数が増えた",sub:"AIが行動の起点になった",score:"Q"},{label:"AIがないと動き出しにくくなった",sub:"AIがないと不安になる場面が増えた",score:"M"}]},
+  {type:"choice", guide:"問いが作れない時、答えに逃げるか、問いを掘らせるか。", text:"「何を聞けばいいかわからない」ときは？", choices:[{label:"AIに『私に質問して』と頼む",sub:"問いを作るところから任せる",score:"Q"},{label:"とりあえず『教えて』と聞く",sub:"答えから入る",score:"A"}]},
+  {type:"choice", guide:"白紙の前で、AIを呼ぶタイミングを見ます。", text:"投稿や文章を作るときは？", choices:[{label:"最初の一文や骨子は自分で出す",sub:"AIは後から使う",score:"H"},{label:"ゼロからAIに出してもらう",sub:"白紙がしんどい",score:"M"}]},
+  {type:"choice", guide:"AIに期待しているのは、補強か、決定か。", text:"AIの出力に期待するものは？", choices:[{label:"自分らしさを残したまま良くすること",sub:"編集・補強が目的",score:"E"},{label:"これでいける、という判断をくれること",sub:"背中を押してほしい",score:"J"}]},
+  {type:"choice", guide:"AIに褒められた時、安心するか疑うか。これもかなり出ます。", text:"AIに褒められたら？", choices:[{label:"いや、本当にそうか？と一度疑う",sub:"甘い評価を警戒する",score:"R"},{label:"少し安心して、その方向に寄せる",sub:"肯定されると進みやすい",score:"D"}]},
+  {type:"choice", guide:"AIで伸びる人は、答えより“問い”を得ていることがあります。", text:"AIで伸びたと感じる使い方は？", choices:[{label:"自分でも気づいてない問いを掘れたとき",sub:"考えが深くなる",score:"Q"},{label:"欲しい答えが早く出たとき",sub:"作業が進む",score:"A"}]},
+  {type:"choice", guide:"AIなしの10分。ここが“考え始める筋力”です。", text:"AIなしで10分考えるのは？", choices:[{label:"できる。むしろ先に少し考えたい",sub:"AI前の余白がある",score:"H"},{label:"正直すぐAIに聞きたくなる",sub:"考え始めが重い",score:"M"}]},
+  {type:"choice", guide:"AIの提案を素材にするか、選択まで任せるか。", text:"AIの提案が3つ出たら？", choices:[{label:"自分の言葉や目的に合わせて混ぜる",sub:"素材として使う",score:"E"},{label:"一番よさそうなものを選んでもらいたい",sub:"決める負担を減らしたい",score:"J"}]},
+  {type:"choice", guide:"断言に弱いか、根拠を掘れるか。", text:"AIが断言してきたら？", choices:[{label:"根拠や別案を聞き返す",sub:"そのままでは使わない",score:"R"},{label:"かなり信じる。迷いが減るなら助かる",score:"D"}]},
+  {type:"choice", guide:"最後は使用回数です。ただし、回数だけでは判断しません。", text:"1日でAIを使う回数は？", choices:[{label:"少ないが、使う前に考える時間はある",sub:"回数より主導権を残している",score:"H"},{label:"多い。考える前にAIを開くことが増えた",sub:"回数より起動タイミングが問題",score:"M"}]}
+];
+
+const TYPES = {
+QHER:{name:"壁打ち司令官型",catch:"AIを参謀にしつつ、主導権は自分に残せるタイプ。",finding:"考える前の主導権",weak:"預けすぎは少なめ。ただし、考えすぎて行動が遅くなることがあります。",insight:"あなたはAIに答えをもらうより、思考を深める相手として使えています。",action:"最後に必ず「今日やる1つ」を決めると、考えるだけで終わりにくくなります。"},
+QHED:{name:"きれいに整えすぎ型",catch:"考えはある。でも出口がAIのきれいな言葉に寄りやすい。",finding:"自分の言葉のクセ",weak:"自分の言葉のクセ。",insight:"あなたは考えていないわけではありません。ただ、最後の表現をAIに寄せすぎると、あなたの体温が薄くなります。",action:"AIで整えたあと、あえて一文だけ雑な自分の言葉に戻してください。"},
+QHJR:{name:"AIを疑える相棒型",catch:"問いも仮説もある。AIを判断前のシミュレーターにできる。",finding:"判断前の安心感",weak:"判断前の安心感。",insight:"あなたはAIに支配されにくいタイプです。ただ、確認が増えると決断の速度が落ちます。",action:"AIに聞く回数を2回までにして、最後は自分の基準で決めてください。"},
+QHJD:{name:"AI占い信者型",catch:"仮説はあるのに、最後の一押しをAIに寄せがち。",finding:"最後に選ぶ力",weak:"最後に選ぶ力。",insight:"あなたは考えられます。でも最後の『これでいい』をAIに言ってほしくなりやすい。",action:"AIの結論を見たあとに『でも自分はどれが一番嫌じゃないか』を書いてください。"},
+QMER:{name:"質問待ち迷子型",catch:"AIに聞き出されると進む。問いを作る前で止まりやすい。",finding:"問いを立てる力",weak:"問いを立てる力。",insight:"あなたは答えが出ないのではなく、最初の問いが作れず止まりやすいタイプです。",action:"最初に『私に3つ質問して』とAIに頼むと動き出しやすいです。"},
+QMED:{name:"受け身編集型",catch:"素材はある。でも言語化をAIに預けがち。",finding:"言葉にする力",weak:"言葉にする力。",insight:"あなたの中に材料はあります。ただ、最初の言葉をAIに預けるほど、自分の感覚が薄くなります。",action:"AIに渡す前に、箇条書きで3つだけ自分の言葉を書いてください。"},
+QMJR:{name:"不安確認型",catch:"決めたいのに、何度もAIに確認してしまう。",finding:"自分を信じる力",weak:"自分を信じる力。",insight:"あなたはAIを使っているというより、不安を鎮めるためにAIへ戻っている可能性があります。",action:"AIに相談したあと『これ以上聞かない条件』を1つ決めてください。"},
+QMJD:{name:"丸投げ預言者型",catch:"AIが正解をくれる前提になりやすい。脳溶け注意タイプ。",finding:"考え始める力",weak:"考え始める力。",insight:"あなたはAIがないと答えが出ないのではなく、考え始める前にAIを呼ぶ癖が強くなっています。",action:"AIに聞く前に、自分の仮説を1行だけ書いてください。間違っていてもOKです。"},
+AHER:{name:"自走ライター型",catch:"自分で考え、AIで整える。かなりバランス型。",finding:"整える作業",weak:"整える作業。",insight:"あなたはAIに思考を奪われにくいタイプです。AIを清書係として使えています。",action:"今の使い方は良いです。たまにAIなしで最後まで書く日を作るとさらに戻ります。"},
+AHED:{name:"AI文体感染型",catch:"考えはある。でも文章がAIっぽくなりやすい。",finding:"自分の文体",weak:"自分の文体。",insight:"あなたの中身は人間っぽいのに、出口でAIの整いすぎた言葉に変わりやすいです。",action:"AI文の最後に、自分の口癖・違和感・本音を一文だけ足してください。"},
+AHJR:{name:"判断補助型",catch:"AIを比較材料として使える健全タイプ。",finding:"反対意見を出す力",weak:"補助的な視点。",insight:"あなたはAIに決めさせるのではなく、判断材料を増やす道具として使えています。",action:"AIに賛成案だけでなく、反対案も必ず出させるとさらに強いです。"},
+AHJD:{name:"最終決定外注型",catch:"自分の考えはある。でも最後の決定をAIに渡しがち。",finding:"選んだ実感",weak:"選んだ実感。",insight:"あなたは考える力より、『自分で選んだ』という感覚をAIに預けやすいタイプです。",action:"AIのおすすめを見たあとに『選ばなかった方を捨てる理由』を自分で書いてください。"},
+AMER:{name:"素材投下職人型",catch:"とりあえず入れる。使えるけど、目的がぼやけやすい。",finding:"目的設定",weak:"目的設定。",insight:"あなたは素材をAIに渡せます。ただ、何を得たいかが曖昧なままだと結果も薄くなります。",action:"AIに渡す前に『欲しい結果は何か』を1行で書いてください。"},
+AMED:{name:"量産コンテンツ型",catch:"早い。でも薄くなりやすい。AI臭が出やすい。",finding:"深掘りする力",weak:"深掘りする力。",insight:"あなたはAIで量を出せます。ただ、速さに寄りすぎると人間の引っかかりが消えます。",action:"投稿前に『これは誰のどんな欲に刺さる？』を必ず1つ足してください。"},
+AMJR:{name:"迷走相談型",catch:"AIの答えは疑う。でも決めきれず相談が増える。",finding:"決断の締め",weak:"決断の締め。",insight:"あなたはAIを信じすぎてはいません。ただ、疑い続けることで前に進みにくくなるタイプです。",action:"AIに3案出させたら、4案目を求めず、一番マシな案を選んでください。"},
+AMJD:{name:"完全外注型",catch:"考える、書く、決めるを全部AIに預けがち。",finding:"思考全体の主導権",weak:"思考全体の主導権。",insight:"あなたはAIを便利に使えている一方で、自分の判断や言葉が後ろに下がりやすい状態です。",action:"AIに聞く前に『自分ならこうする』を1行。AIの後に『でも自分はこうする』を1行書いてください。"}
+};
+
+const AXIS = {Q:"質問型",A:"回答待ち",H:"仮説あり",M:"丸投げ",E:"編集型",J:"判断型",R:"疑う",D:"受け取る"};
+const COLOR = {Q:"#3b82f6",A:"#ef4444",H:"#10b981",M:"#f59e0b",E:"#8b5cf6",J:"#f97316",R:"#14b8a6",D:"#ec4899"};
+const SHAPE = {Q:"M12 6l5 4-5 4-5-4 5-4z",A:"M7 7h10v10H7z",H:"M12 5l6 12H6L12 5z",M:"M6 12a6 6 0 1 0 12 0a6 6 0 1 0-12 0",E:"M6 7h12v3H6zm0 5h12v3H6z",J:"M8 7h8v8a4 4 0 1 1-8 0z",R:"M11 6a5 5 0 1 1 0 10a5 5 0 1 1 0-10zm6 11l3 3",D:"M12 6c3 0 6 2.2 6 5.5S15 17 12 20c-3-3-6-5.5-6-8.5S9 6 12 6z"};
+const aiFillExamples = ["文章を書こうとした瞬間、最初の一文からAIに任せたくなる。整うけど、自分の言葉が出る前に答えを見にいっている感じがする。","調べる前にすぐAIに聞くようになった。便利だけど、検索ワードを自分で考える力が落ちた気がする。","迷ったときに、自分で決めるよりAIに決めてもらいたくなる。あとで自分で選んだ感じが残らない。","投稿や企画を考えるとき、まずAIに案を出させるようになった。ゼロから考える筋肉が弱くなった気がする。","AIの答えがきれいすぎて、自分の荒い考えを出すのが面倒になった。","AIに褒められると安心して、そのまま進めてしまう。本当に良いかを疑う前に受け取っている。"];
+
+/* 2. ユーティリティ */
+const $ = id => document.getElementById(id);
+function show(id){ $(id).classList.remove("hidden"); }
+function hide(id){ $(id).classList.add("hidden"); }
+function toast(msg){ $("toast").textContent=msg; show("toast"); setTimeout(()=>hide("toast"),1500); }
+let index=0, answers=[], freeAnswer="", freeAssisted=false, judgeAnswer="", currentResultCode="";
+
+/* 3. SVG生成 */
+function mascotSvg(size){
+  size=size||90;
+  return '<svg xmlns="http://www.w3.org/2000/svg" width="'+size+'" height="'+size+'" viewBox="0 0 96 96"><rect x="8" y="18" width="80" height="66" rx="28" fill="#fff6d8"/><path d="M24 35c4-14 16-22 31-20 12 2 20 11 22 24" fill="none" stroke="#d8a742" stroke-width="8" stroke-linecap="round"/><path d="M34 18h28l-4 18H38z" fill="#d8a742"/><circle cx="35" cy="54" r="5" fill="#111827"/><circle cx="61" cy="54" r="5" fill="#111827"/><path d="M40 68c5 4 12 4 17 0" fill="none" stroke="#111827" stroke-width="4" stroke-linecap="round"/><path d="M68 76l12 12" stroke="#111827" stroke-width="7" stroke-linecap="round"/><circle cx="63" cy="71" r="12" fill="none" stroke="#111827" stroke-width="5"/></svg>';
+}
+function makeIconSvg(code,size){
+  size=size||96;
+  return '<svg xmlns="http://www.w3.org/2000/svg" width="'+size+'" height="'+size+'" viewBox="0 0 96 96" aria-hidden="true"><defs><linearGradient id="g'+code+size+'" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="'+COLOR[code[0]]+'"/><stop offset="100%" stop-color="'+COLOR[code[2]]+'"/></linearGradient></defs><rect x="4" y="4" width="88" height="88" rx="24" fill="url(#g'+code+size+')"/><rect x="9" y="9" width="78" height="78" rx="20" fill="rgba(255,255,255,.12)"/><g fill="white" opacity=".92"><circle cx="22" cy="22" r="10" fill="'+COLOR[code[0]]+'"/><circle cx="74" cy="22" r="10" fill="'+COLOR[code[1]]+'"/><circle cx="22" cy="74" r="10" fill="'+COLOR[code[2]]+'"/><circle cx="74" cy="74" r="10" fill="'+COLOR[code[3]]+'"/></g><g fill="none" stroke="white" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="'+SHAPE[code[0]]+'" transform="translate(10 10) scale(.5)"/><path d="'+SHAPE[code[1]]+'" transform="translate(62 10) scale(.5)"/><path d="'+SHAPE[code[2]]+'" transform="translate(10 62) scale(.5)"/><path d="'+SHAPE[code[3]]+'" transform="translate(62 62) scale(.5)"/></g><text x="48" y="54" text-anchor="middle" fill="white" font-size="24" font-weight="900" font-family="-apple-system,BlinkMacSystemFont,Hiragino Sans,Yu Gothic,sans-serif">'+code+'</text></svg>';
+}
+
+/* 4. 共有テキスト生成 */
+function makeFreeInsight(){
+  if(!freeAnswer) return "記述式は未入力です。";
+  if(freeAssisted) return "ここで「AIに任せる」を選んだあなたは、答えだけでなく“モヤモヤを言葉にする前段階”もAIに預けやすい傾向が少し見えます。最初の一語だけでも自分で置くと、思考の主導権が戻りやすくなります。";
+  return "自分のモヤモヤを自分の言葉で置けています。AIに聞く前に状態を言語化できる人は、AIに丸ごと流されにくいです。次は「自分はどうしたいか」を一文だけ足すとさらに強いです。";
+}
+function makeJudgeInsight(){
+  if(judgeAnswer==="ai") return "AIっぽさを見抜く感覚は残っています。ただし、見抜けることと、使いこなせることは別です。違和感を見つけたら、自分の体験を一文足してください。";
+  if(judgeAnswer==="human") return "AIっぽい文章を“整っている文章”として受け取りやすい傾向が少し見えます。きれいな文章ほど、誰の体験が入っているかを見ると感覚が戻ります。";
+  return "判別テストは未回答です。";
+}
+function makeShareText(code){
+  const d=TYPES[code];
+  return "AI脳発掘診断の結果：" + code + " " + d.name + "\n\n"
+    + "発掘された思考：\n" + d.finding + "\n\n"
+    + d.catch + "\n\n"
+    + "記述式の見立て：\n" + (freeAssisted ? "モヤモヤの言語化までAIに任せがちかも。" : "AIに聞く前の自分の言葉はまだ残っていそう。") + "\n\n"
+    + "#AI脳発掘診断";
+}
+
+/* 5. 結果更新 */
+function updateResult(code){
+  const d=TYPES[code];
+  currentResultCode=code;
+  $("resultCode").textContent=code;
+  $("resultName").textContent=d.name;
+  $("resultCatch").textContent=d.catch;
+  $("findingLine").textContent="あなたがAIに預けていたのは「"+d.finding+"」です。";
+  $("resultInsight").textContent=d.insight;
+  $("freeInsight").textContent=makeFreeInsight();
+  $("judgeInsight").textContent=makeJudgeInsight();
+  $("resultAction").textContent=d.action;
+  $("axis1").textContent=AXIS[code[0]];
+  $("axis2").textContent=AXIS[code[1]];
+  $("axis3").textContent=AXIS[code[2]];
+  $("axis4").textContent=AXIS[code[3]];
+  $("resultIcon").innerHTML=makeIconSvg(code,96);
+  $("shareText").value=makeShareText(code);
+  const url=new URL(window.location.href);
+  url.searchParams.set("type",code);
+  history.replaceState({}, "", url.toString());
+}
+
+/* 6. UI操作 */
+function renderQuestion(){
+  const q=qs[index];
+  $("qMeta").textContent="Q"+(index+1)+" / "+qs.length;
+  $("bar").style.width=((index/qs.length)*100)+"%";
+  $("qTitle").textContent=q.text;
+  $("guideIcon").innerHTML=mascotSvg(42);
+  $("guideText").textContent=q.guide;
+  $("questionArea").innerHTML="";
+  $("nextBtn").textContent=index===qs.length-1 ? "結果を見る" : "次へ";
+
+  if(q.type==="free"){
+    $("questionArea").innerHTML='<div class="freeBox"><p class="small">ここだけ記述式です。自分の言葉で書いてみてください。詰まったら補助ボタンも使えます。</p><textarea id="freeInput" placeholder="例：文章を書こうとすると、最初の一文からAIに任せたくなる。"></textarea><div class="btns"><button type="button" onclick="App.aiFill()">AIに任せる</button><button type="button" class="secondary" onclick="App.clearFree()">自分で書き直す</button></div><div id="aiNote" class="aiNote"><strong>AIがそれっぽく補完しました</strong>このまま進めても大丈夫です。結果画面で、この選択も含めて見立てます。</div></div>';
+    $("freeInput").value=freeAnswer;
+    if(freeAssisted) $("aiNote").classList.add("show");
+    $("freeInput").oninput=()=>{freeAnswer=$("freeInput").value.trim();$("nextBtn").disabled=freeAnswer.length<2;};
+    $("nextBtn").disabled=freeAnswer.length<2;
+    return;
+  }
+
+  if(q.type==="judge"){
+    $("questionArea").innerHTML='<div class="judgeBox"><div class="judgeCards"><div id="judgeAi" class="judgeCard" onclick="App.selectJudge(\'ai\')"><b>A</b><p>AIを活用することで、作業効率の向上や品質の安定化が期待できます。目的に応じて適切に使用することが重要です。</p></div><div id="judgeHuman" class="judgeCard" onclick="App.selectJudge(\'human\')"><b>B</b><p>AI便利なんだけど、先に答え見ちゃうと、自分の雑な考えを出す前に終わる感じがある。</p></div></div><p class="small footerNote">直感で選んでください。結果画面で見立てを出します。</p></div>';
+    if(judgeAnswer==="ai") $("judgeAi").classList.add("selected");
+    if(judgeAnswer==="human") $("judgeHuman").classList.add("selected");
+    $("nextBtn").disabled=!judgeAnswer;
+    return;
+  }
+
+  let out='';
+  if(q.sample){
+    out+='<div class="sampleBox"><strong>判別する文章</strong><p>'+q.sample+'</p></div>';
+  }
+  out+='<div class="choices">';
+  q.choices.forEach((c,i)=>{const sel=answers[index]===i;out+='<label class="choice'+(sel?' selected':'')+'" onclick="App.selectChoice('+i+')"><input type="radio" name="choice" '+(sel?'checked':'')+'><div><strong>'+c.label+'</strong><span>'+c.sub+'</span></div></label>';});
+  out+='</div>';
+  $("questionArea").innerHTML=out;
+  $("nextBtn").disabled=answers[index]===undefined;
+}
+function selectChoice(i){answers[index]=i;renderQuestion();$("nextBtn").disabled=false;}
+function aiFill(){const pick=aiFillExamples[Math.floor(Math.random()*aiFillExamples.length)];freeAnswer=pick;freeAssisted=true;$("freeInput").value=pick;$("aiNote").classList.add("show");$("nextBtn").disabled=false;}
+function clearFree(){freeAnswer="";freeAssisted=false;$("freeInput").value="";$("aiNote").classList.remove("show");$("nextBtn").disabled=true;$("freeInput").focus();}
+function selectJudge(v){judgeAnswer=v;renderQuestion();$("nextBtn").disabled=false;}
+function analyzeFreeAnswer(score){
+  const text=(freeAnswer||"").toLowerCase();
+  if(!freeAnswer)return;
+  if(freeAssisted){score.M+=1;score.D+=1;}else{score.H+=1;}
+  if(/質問|聞けば|何を聞|問い|相談/.test(text))score.Q+=1;
+  if(/答え|教えて|正解|すぐ/.test(text))score.A+=1;
+  if(/仮説|自分の考え|先に考|一文|骨子/.test(text))score.H+=1;
+  if(/丸投げ|任せ|ゼロから|白紙|出して/.test(text))score.M+=1;
+  if(/文章|言葉|文体|書く|整う|表現/.test(text))score.E+=1;
+  if(/決め|判断|選ぶ|おすすめ|背中/.test(text))score.J+=1;
+  if(/疑|違和感|本当に|根拠|見返/.test(text))score.R+=1;
+  if(/信じ|そのまま|安心|褒め|受け取/.test(text))score.D+=1;
+}
+function calcType(){
+  const score={Q:0,A:0,H:0,M:0,E:0,J:0,R:0,D:0};
+  answers.forEach((ans,i)=>{const q=qs[i];if(q&&q.type==="choice"&&ans!==undefined)score[q.choices[ans].score]+=1;});
+  analyzeFreeAnswer(score);
+  if(judgeAnswer==="ai") score.R+=1;
+  if(judgeAnswer==="human") score.D+=1;
+  return (score.Q>=score.A?"Q":"A")+(score.H>=score.M?"H":"M")+(score.E>=score.J?"E":"J")+(score.R>=score.D?"R":"D");
+}
+function startQuiz(){index=0;answers=[];freeAnswer="";freeAssisted=false;judgeAnswer="";currentResultCode="";hide("home");hide("result");hide("types");show("quiz");renderQuestion();}
+function next(){
+  const q=qs[index];
+  if(q.type==="free"&&freeAnswer.length<2)return;
+  if(q.type==="judge"&&!judgeAnswer)return;
+  if(q.type==="choice"&&answers[index]===undefined)return;
+  if(index<qs.length-1){index+=1;renderQuestion();}else{showResultByCode(calcType());}
+}
+function back(){if(index>0){index-=1;renderQuestion();}else{goHome();}}
+function showResultByCode(code){hide("home");hide("quiz");hide("types");show("result");updateResult(code);}
+function goHome(){hide("quiz");hide("result");hide("types");show("home");const url=new URL(window.location.href);url.searchParams.delete("type");history.replaceState({},"",url.toString());}
+function showTypes(){hide("home");hide("quiz");hide("result");show("types");renderGallery();}
+function renderGallery(){$("gallery").innerHTML=Object.keys(TYPES).map(code=>{const d=TYPES[code];return '<div class="typeCard"><div>'+makeIconSvg(code,72)+'</div><div><h4>'+d.name+'</h4><p>'+d.catch+'</p><span class="codeTag">'+code+'</span></div></div>';}).join("");}
+async function copyText(text){try{await navigator.clipboard.writeText(text);toast("コピーしました");}catch(e){const ta=document.createElement("textarea");ta.value=text;document.body.appendChild(ta);ta.select();document.execCommand("copy");ta.remove();toast("コピーしました");}}
+function copyShare(){copyText($("shareText").value);}
+function copyUrl(){copyText(window.location.href);}
+function shareX(){window.open("https://twitter.com/intent/tweet?text="+encodeURIComponent($("shareText").value)+"&url="+encodeURIComponent(window.location.href),"_blank");}
+async function shareNative(){if(navigator.share){try{await navigator.share({title:"AI脳発掘診断",text:$("shareText").value,url:window.location.href});}catch(e){}}else{copyShare();}}
+function saveSvg(){
+  const code=currentResultCode||"QHER",d=TYPES[code];
+  const svg='<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630"><rect width="1200" height="630" fill="#f6f0e6"/><rect x="55" y="48" width="1090" height="534" rx="34" fill="#fffdf8"/><rect x="85" y="80" width="1030" height="285" rx="30" fill="#111827"/><foreignObject x="110" y="102" width="980" height="240"><div xmlns="http://www.w3.org/1999/xhtml" style="display:grid;grid-template-columns:120px 1fr;gap:18px;align-items:center;font-family:-apple-system,BlinkMacSystemFont,Hiragino Sans,Yu Gothic,sans-serif;color:white"><div>'+makeIconSvg(code,110)+'</div><div><div style="font-size:56px;line-height:1;font-weight:900;letter-spacing:-.05em">'+code+'</div><div style="margin-top:8px;font-size:34px;font-weight:900;letter-spacing:-.04em">'+d.name+'</div><div style="margin-top:10px;font-size:21px;color:#d9dcef">'+d.catch+'</div></div></div></foreignObject><text x="95" y="415" font-size="24" font-weight="900" fill="#171412">発掘された思考</text><foreignObject x="95" y="428" width="1010" height="80"><div xmlns="http://www.w3.org/1999/xhtml" style="font:30px -apple-system,BlinkMacSystemFont,Hiragino Sans,Yu Gothic,sans-serif;color:#171412;font-weight:900">あなたがAIに預けていたのは「'+d.finding+'」です。</div></foreignObject><text x="95" y="535" font-size="22" font-weight="900" fill="#171412">AI脳発掘診断</text></svg>';
+  const blob=new Blob([svg],{type:"image/svg+xml;charset=utf-8"}),url=URL.createObjectURL(blob),a=document.createElement("a");
+  a.href=url;a.download="ai-brain-dig-"+code+".svg";document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url);
+}
+function init(){
+  $("heroMascot").innerHTML=mascotSvg(88);
+  const st=$("jsStatus");if(st){st.textContent="JS起動OK";st.classList.add("ok");}
+  renderGallery();
+  const code=new URL(window.location.href).searchParams.get("type");
+  if(code&&TYPES[code])showResultByCode(code);
+}
+return {startQuiz,next,back,selectChoice,aiFill,clearFree,selectJudge,showTypes,goHome,copyShare,copyUrl,shareX,shareNative,saveSvg,init};
+})();
+App.init();
+</script>
+</body>
+</html>
