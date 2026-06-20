@@ -1,0 +1,10 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>AI脳16タイプ診断</title><style>body{margin:0;background:#fff9ef;font-family:-apple-system,BlinkMacSystemFont,'Hiragino Sans','Yu Gothic','Noto Sans JP',sans-serif}.loading{min-height:100vh;display:grid;place-items:center;color:#174ea6;font-weight:900}</style></head><body><div class="loading">AI脳16タイプ診断を読み込み中...</div><script>
+fetch('v12.html?base=1').then(r=>r.text()).then(html=>{
+  html = html.replace(/<base[^>]*>/g,'');
+  html = html.replace('.visual{border-radius:18px;height:420px;overflow:hidden;background:#fff3d4;background-repeat:no-repeat;background-size:175% auto;background-position:90% 50%;border:1px solid #f1e3c9}', '.visual{border-radius:18px;height:420px;overflow:hidden;background:#fff3d4;background-repeat:no-repeat;background-size:245% auto;background-position:89% 50%;border:1px solid #f1e3c9}');
+  html = html.replace('@media(min-width:1200px){.visual{background-size:168% auto;background-position:92% 50%}}', '@media(min-width:1200px){.visual{background-size:245% auto;background-position:89% 50%}}');
+  html = html.replace('@media(max-width:900px){.hero{grid-template-columns:1fr}.visual{height:auto;aspect-ratio:16/9;background-size:cover;background-position:center}', '@media(max-width:900px){.hero{grid-template-columns:1fr}.visual{height:auto;aspect-ratio:16/9;background-size:cover;background-position:center}');
+  html = html.replace('</style>', '.visual:after{content:"";display:block;position:absolute}.visual{box-shadow:0 12px 26px rgba(26,18,9,.08)}@media(min-width:901px){.visual{max-width:520px;justify-self:end}} </style>');
+  document.open(); document.write(html); document.close();
+}).catch(()=>{document.body.innerHTML='<div class="loading">読み込みに失敗しました。再読み込みしてください。</div>'});
+</script></body></html>
